@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script>
+            var xhr = new XMLHttpRequest();
+            function upload() {
+                var file = document.getElementById("uploadfile");
+                var formData = new FormData();
+                var blob = new Blob([file.files[0]], {type: 'plain/text'});
+                formData.append('file', blob, "temp.txt");
+                xhr.open("POST", "/upload", true);
+                xhr.send(formData);
+            }
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("result").innerHTML = "done";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div id="result"></div>
+        <input type="file" id="uploadfile" name="uploadfile" />
+        <input type="button" value="upload" onclick="upload()">
+    </body>
+</html>

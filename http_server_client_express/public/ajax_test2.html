@@ -1,0 +1,29 @@
+<html>
+    <title>my ajax test2</title>
+    <script>
+        function alertContents(httpRequest) {
+            if (httpRequest.readyState == 4) {
+                var xmlDoc = httpRequest.responseXML;
+                var rootNode = xmlDoc.getElementsByTagName('root').item(0);
+                alert(rootNode.firstChild.data);
+            }
+        }
+        function makeRequest(url) {
+            var httpRequest = new XMLHttpRequest();
+            if (httpRequest.overrideMimeType) {
+                httpRequest.overrideMimeType('text/xml');
+            }
+            httpRequest.onreadystatechange = function() {alertContents(httpRequest)};
+            httpRequest.open('GET', url, true);
+            httpRequest.send('');
+        }
+    </script>
+    <body>
+        <div>
+            This is a simple test 2 of ajax asynchronous call with text response
+        </div>
+        <span style="cursor:pointer; text-decoration:underline" onclick="makeRequest('ajax_test2_response.xml')">
+            make a AJAX request
+        </span>
+    </body>
+</html>
